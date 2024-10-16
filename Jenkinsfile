@@ -1,44 +1,44 @@
 pipeline {
- agent any 
+  agent any 
 --ou--
- agent {
- node {
- label 'build'
- }
+    agent {
+      node {
+             label 'build'
+           }
  }
  tools {
- maven 'M2_HOME'
+     maven 'M2_HOME'
  }
  options {
  --Timeout counter starts after agent is allocated--
- timeout(time: 1, unit: 'SECONDS')
+       timeout(time: 1, unit: 'SECONDS')
  }
  environment {
- APP_ENV = "DEV"
+      APP_ENV = "DEV"
  }
  stages {
- stage('Code Checkout') {
- steps {
- git branch: 'master',
- url: 'https://github.com/hwafa/atelier-jenkins.git',
- credentialsId: 'jenkins-example-github-pat'
+    stage('Code Checkout') {
+      steps {
+        git branch: 'master',
+        url: 'https://github.com/MayssaSmeti/TestJenkins.git',
+        credentialsId: 'jenkins-example-github-pat'
  }
  }
  stage('Code Build') {
- steps {
- sh 'mvn install -Dmaven.test.skip=true'
+      steps {
+          sh 'mvn install -Dmaven.test.skip=true'
  }
  }
  }
  post {
- always { 
- echo "======always======"
+     always { 
+        echo "======always======"
  }
  success {
- echo "=====pipeline executed successfully ====="
+     echo "=====pipeline executed successfully ====="
  }
  failure {
- echo "======pipeline execution failed======"
+     echo "======pipeline execution failed======"
  }
  }
  }
